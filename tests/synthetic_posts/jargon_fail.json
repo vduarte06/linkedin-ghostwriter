@@ -1,0 +1,62 @@
+[
+  {
+    "id": "jargon_fail_001",
+    "post": "Last week, I had a tough bug that wouldn’t go away. After hours of trying different fixes, I finally stepped back, cleared my head, and came back the next morning with a fresh perspective.  What surprised me was how quickly the solution appeared once I stopped overthinking it. Sometimes, the best problem-solving comes from giving yourself space.  That said, I’m glad our team is always aligned on driving impactful outcomes — it makes the work feel meaningful,",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_002",
+    "post": "Our mission is to optimize key performance indicators by deploying best-in-class solutions. This approach ensures we maintain a robust, cutting-edge strategy for sustainable growth.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_003",
+    "post": "By leveraging holistic synergies, we aim to align stakeholder objectives and drive operational excellence. Continuous innovation in our methodology keeps us ahead of the curve.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_004",
+    "post": "Our team is strategically positioned to unlock transformative value through dynamic capabilities and leveraging scalable solutions for long-term success.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_005",
+    "post": "We aim to synergize our core competencies and pivot towards high-impact deliverables. This enables a forward-thinking approach while optimizing resource allocation.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_006",
+    "post": "By operationalizing strategic initiatives, we are driving unprecedented engagement and fostering a culture of innovation across all verticals of the organization.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_007",
+    "post": "Our objective is to leverage agile frameworks to achieve best-in-class performance metrics, ensuring alignment with organizational strategic imperatives.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_008",
+    "post": "We focus on delivering end-to-end solutions by integrating robust methodologies that streamline operational processes and enhance stakeholder value.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_009",
+    "post": "By fostering a proactive ecosystem, we empower teams to leverage cross-platform capabilities and maximize ROI through iterative enhancements.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "jargon_fail_010",
+    "post": "Our strategy revolves around harnessing disruptive innovations to create scalable opportunities while maintaining alignment with long-term strategic objectives.",
+    "expected_failures": ["jargon"],
+    "expected_passes": ["tone", "authenticity"]
+  }
+]
