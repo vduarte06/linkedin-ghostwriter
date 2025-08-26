@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Unified command-line interface for LinkedIn Ghostwriter (Click-based)."""
+"""Unified command-line interface for LinkedIn Ghostwriter (Click-based).
+
+Subcommands:
+- main         : Interactive ghostwriter workflow (generate + evaluate)
+- test-judge   : Test LLM judge (general post quality)
+- test-jargon  : Test LLM judge (corporate jargon detector)
+- dash         : Test rule-based evaluator (dash count)
+"""
 
 import sys
 import os
@@ -10,7 +17,12 @@ import click
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from linkedin_ghostwriter import LinkedInGhostwriter, DashCountEvaluator, LLMJudgeEvaluator
+from linkedin_ghostwriter import (
+    LinkedInGhostwriter,
+    DashCountEvaluator,
+    LLMJudgeEvaluator,
+    CorporateJargonJudgeEvaluator,
+)
 
 
 @click.group(context_settings=dict(help_option_names=["-h", "--help"]))
@@ -19,7 +31,7 @@ def cli():
     pass
 
 
-@cli.command(name="main")
+@cli.command(name="main", help="Run the interactive ghostwriter workflow (generate + evaluate)")
 def main_workflow():
     """Run the interactive ghostwriter workflow (generate + evaluate)."""
     click.echo("🚀 LinkedIn Ghostwriter - AI-powered post generation")
@@ -114,15 +126,16 @@ def _load_text(text: str, file: str, *, interactive_title: str = "Enter text (pr
     return content
 
 
-@cli.command(name="judge")
-@click.option("--text", type=str, default="", help="Post text to evaluate")
-@click.option("--file", type=str, default="", help="Path to file with post text")
+@cli.command(name="test-judge", help="Test LLM judge (general post quality)")
+@click.option("--text", type=str, default="", help="Post text to evaluate (LLM judge)")
+@click.option("--file", type=str, default="", help="Path to file with post text (LLM judge)")
 @click.option("--model", type=str, default=None, help="LLM model name (overrides env/Config)")
 @click.option("--temperature", type=float, default=0.0, help="LLM temperature")
 @click.option("--pretty", is_flag=True, help="Pretty-print JSON output")
-def judge_cmd(text: str, file: str, model: str, temperature: float, pretty: bool):
-    """Test the LLM judge evaluator with custom text or file input."""
+def test_judge_cmd(text: str, file: str, model: str, temperature: float, pretty: bool):
+    """Test the general LLM judge with custom text or file input."""
     try:
+        click.echo("🔎 LLM Judge (general) — evaluating post...")
         content = _load_text(text, file, interactive_title="Enter post text for LLM judge (Enter twice to finish):")
         evaluator = LLMJudgeEvaluator(model=model, temperature=temperature)
         result = evaluator.evaluate(content)
@@ -131,14 +144,33 @@ def judge_cmd(text: str, file: str, model: str, temperature: float, pretty: bool
         raise click.ClickException(str(e))
 
 
-@cli.command(name="dash")
-@click.option("--text", type=str, default="", help="Post text to evaluate")
-@click.option("--file", type=str, default="", help="Path to file with post text")
+@cli.command(name="test-jargon", help="Test LLM judge (corporate jargon detector)")
+@click.option("--text", type=str, default="", help="Post text to evaluate (corporate jargon judge)")
+@click.option("--file", type=str, default="", help="Path to file with post text (corporate jargon judge)")
+@click.option("--model", type=str, default=None, help="LLM model name (overrides env/Config)")
+@click.option("--temperature", type=float, default=0.0, help="LLM temperature")
+@click.option("--pretty", is_flag=True, help="Pretty-print JSON output")
+def test_jargon_cmd(text: str, file: str, model: str, temperature: float, pretty: bool):
+    """Test the corporate jargon LLM judge with custom text or file input."""
+    try:
+        click.echo("🔎 LLM Judge (corporate jargon) — evaluating post...")
+        content = _load_text(text, file, interactive_title="Enter post text for corporate jargon judge (Enter twice to finish):")
+        evaluator = CorporateJargonJudgeEvaluator(model=model, temperature=temperature)
+        result = evaluator.evaluate(content)
+        click.echo(json.dumps(result, indent=2 if pretty else None, ensure_ascii=False))
+    except Exception as e:
+        raise click.ClickException(str(e))
+
+
+@cli.command(name="dash", help="Test rule-based evaluator (dash count)")
+@click.option("--text", type=str, default="", help="Post text to evaluate (dash evaluator)")
+@click.option("--file", type=str, default="", help="Path to file with post text (dash evaluator)")
 @click.option("--max-dashes", type=int, default=3, help="Maximum allowed dashes")
 @click.option("--pretty", is_flag=True, help="Pretty-print JSON output")
 def dash_cmd(text: str, file: str, max_dashes: int, pretty: bool):
     """Test the dash-count evaluator with custom text or file input."""
     try:
+        click.echo("🧪 Rule-based evaluator (dash count) — evaluating post...")
         content = _load_text(text, file, interactive_title="Enter post text for dash evaluator (Enter twice to finish):")
         evaluator = DashCountEvaluator(max_allowed=max_dashes)
         result = evaluator.evaluate(content)

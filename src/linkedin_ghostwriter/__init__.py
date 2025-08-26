@@ -4,7 +4,7 @@ LinkedIn Ghostwriter - AI-powered LinkedIn post generation with evaluation-drive
 
 from .core.ghostwriter import LinkedInGhostwriter
 from .evaluations.rule_based import DashCountEvaluator
-from .evaluations.llm_based import LLMJudgeEvaluator
+from .evaluations.llm_based import LLMJudgeEvaluator, CorporateJargonJudgeEvaluator
 
 __version__ = "0.1.0"
 __author__ = "Your Name"
@@ -13,4 +13,5 @@ __all__ = [
     "LinkedInGhostwriter",
     "DashCountEvaluator", 
     "LLMJudgeEvaluator",
+    "CorporateJargonJudgeEvaluator",
 ]
