@@ -46,7 +46,7 @@ linkedin-ghostwriter/
 
 4. **Set up environment variables:**
    ```bash
-   cp .env.example .env
+   cp env.example .env
    # Edit .env with your OpenAI API key
    ```
 
@@ -82,11 +82,38 @@ print(f"Generated in {iterations} iterations: {final_post}")
 
 ### Command Line Interface
 
-Run the interactive CLI:
+The unified CLI provides multiple modes of operation:
 
+#### **Main Interactive Workflow**
 ```bash
 python scripts/run_ghostwriter.py
 ```
+Generates LinkedIn posts from raw notes with full evaluation and iteration.
+
+#### **Test Individual Evaluators**
+```bash
+# Test LLM judge with custom text
+python scripts/run_ghostwriter.py --test-judge --text "Your post text here"
+
+# Test dash evaluator with custom text
+python scripts/run_ghostwriter.py --test-dash --text "Your post text here"
+
+# Test with custom parameters
+python scripts/run_ghostwriter.py --test-judge --text "..." --model gpt-4o --temperature 0.1
+
+# Test from file with pretty output
+python scripts/run_ghostwriter.py --test-judge --file post.txt --pretty
+```
+
+#### **CLI Options**
+- `--test-judge`: Test the LLM judge evaluator
+- `--test-dash`: Test the dash count evaluator
+- `--text`: Provide text directly (use quotes for multi-word text)
+- `--file`: Read text from a file
+- `--model`: Override LLM model (for LLM judge)
+- `--temperature`: Set LLM temperature (for LLM judge, default: 0.0)
+- `--max-dashes`: Set maximum allowed dashes (for dash evaluator, default: 3)
+- `--pretty`: Pretty-print JSON output
 
 ### Examples
 
