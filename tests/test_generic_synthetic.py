@@ -4,6 +4,7 @@ import pytest
 from linkedin_ghostwriter import (
     CorporateJargonJudgeEvaluator,
     LLMJudgeEvaluator,
+    StyleEvaluator,
     DashCountEvaluator
 )
 
@@ -162,6 +163,74 @@ class TestGenericJudgeWithClicheData:
         print(f"Result: {result}")
 
 
+# Testing StyleEvaluator with style_fail dataset
+class TestStyleEvaluatorWithStyleData:
+    """Test the StyleEvaluator against synthetic style data."""
+    
+    @pytest.fixture
+    def style_evaluator(self):
+        return StyleEvaluator()
+    
+    @pytest.fixture
+    def style_dataset(self):
+        """Load the style dataset."""
+        from tests.conftest import load_synthetic_dataset
+        return load_synthetic_dataset("style_fail")
+    
+    def test_style_posts_should_fail(self, style_evaluator, style_dataset):
+        """Test that posts with style issues fail the style evaluation."""
+        for test_case in style_dataset:
+            post_id = test_case['id']
+            post_text = test_case['post']
+            expected_failures = test_case['expected_failures']
+            
+            # Run evaluation with style evaluator
+            result = style_evaluator.evaluate(post_text)
+            print(f"result['passed'] for {post_id}: {result['passed']}")
+            
+            # Validate result structure
+            assert 'passed' in result, f"Missing 'passed' key for {post_id}"
+            assert 'feedback' in result, f"Missing 'feedback' key for {post_id}"
+            assert 'evaluator_type' in result, f"Missing 'evaluator_type' key for {post_id}"
+            assert 'judge' in result, f"Missing 'judge' key for {post_id}"
+            assert 'failures' in result, f"Missing 'failures' key for {post_id}"
+            assert 'phrases' in result, f"Missing 'phrases' key for {post_id}"
+            
+            # If style is expected to fail, the post should not pass
+            if 'style' in expected_failures:
+                assert not result['passed'], f"Post {post_id} should fail style check but passed"
+                assert result['feedback'], f"Post {post_id} should have feedback"
+                
+                # Assert that the expected failure category is actually detected
+                assert 'failures' in result, f"Missing 'failures' array for {post_id}"
+                detected_failures = result['failures']
+                assert isinstance(detected_failures, list), f"'failures' should be a list for {post_id}"
+                
+                # Check if any of the expected failures are detected
+                expected_failures_lower = [f.lower() for f in expected_failures]
+                detected_failures_lower = [f.lower() for f in detected_failures]
+                
+                # At least one expected failure should be detected
+                failure_detected = any(exp_failure in detected_failures_lower for exp_failure in expected_failures_lower)
+                assert failure_detected, f"Post {post_id}: Expected failures {expected_failures} not detected in {detected_failures}"
+                
+                # Log the failure details for debugging
+                print(f"\n{post_id}: Failed style check as expected")
+                print(f"Expected failures: {expected_failures}")
+                print(f"Detected failures: {detected_failures}")
+                print(f"Feedback: {result['feedback']}")
+                if result['phrases']:
+                    print(f"Problematic phrases: {result['phrases']}")
+                if result.get('suggestions'):
+                    print(f"Suggestions: {result['suggestions']}")
+            else:
+                # If not expected to fail, just ensure we got a valid result
+                print(f"\n{post_id}: Passed style check as expected")
+                print(f"Feedback: {result['feedback']}")
+                if result.get('failures'):
+                    print(f"Detected issues: {result['failures']}")
+
+
 if __name__ == "__main__":
     # Allow running directly for debugging
     print("Testing generic synthetic framework...")
@@ -198,4 +267,18 @@ if __name__ == "__main__":
             
             print(f"\n--- Testing {post_id} with generic judge ---")
             result = generic_judge.evaluate(post_text)
+            print(f"Result: {result}")
+    
+    if "style_fail" in datasets:
+        style_data = load_synthetic_dataset("style_fail")
+        print(f"\nLoaded {len(style_data)} style test cases")
+        
+        # Test with style evaluator
+        style_evaluator = StyleEvaluator()
+        for test_case in style_data[:2]:  # Test first 2
+            post_id = test_case['id']
+            post_text = test_case['post']
+            
+            print(f"\n--- Testing {post_id} with style evaluator ---")
+            result = style_evaluator.evaluate(post_text)
             print(f"Result: {result}")

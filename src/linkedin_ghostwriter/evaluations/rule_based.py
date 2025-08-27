@@ -23,8 +23,10 @@ class DashCountEvaluator(BaseEvaluator):
         Returns:
             Dictionary with evaluation results
         """
-        # Count only standalone hyphens not at start of line (avoid list bullets)
-        matches = re.findall(r'(?<!^)\s-\s', post)
+        # Count standalone hyphens and em dashes not at start of line (avoid list bullets)
+        # Match both regular hyphens (-) and em dashes (—) with optional spaces around them
+        # This catches: "word - word", "word—word", "word — word", etc.
+        matches = re.findall(r'(?<!^)\s*[-—]\s*', post)
         dash_count = len(matches)
         
         return {
