@@ -1,0 +1,68 @@
+[
+  {
+    "id": "cliche_fail_001",
+    "post": "At the end of the day, what truly matters is that we all gave 110%. Success doesn’t happen overnight, but if you keep pushing, the sky’s the limit. Remember: failure isn’t falling down, it’s refusing to get back up.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_002",
+    "post": "Yesterday I wrapped up a project that tested my patience. It reminded me that what doesn’t kill you makes you stronger, and challenges really are opportunities in disguise. Keep grinding and good things happen.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_003",
+    "post": "The other day, I missed a deadline by a few hours. It stung, but I kept telling myself: every setback is a setup for a comeback. That line has carried me through more than once.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_004",
+    "post": "I was mentoring a junior colleague last week and reminded them that success is a journey, not a destination. It felt good to pass along the same advice I once received when I was starting out.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_005",
+    "post": "While debugging an issue, I realized that sometimes you really do need to think outside the box. That small shift in perspective saved me hours of work.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_006",
+    "post": "I’ve been reflecting on how my team handled a recent sprint. We definitely learned the hard way that teamwork makes the dream work — and I couldn’t be prouder of how everyone pulled together.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_007",
+    "post": "After giving a talk yesterday, I walked away with the same thought I always have: knowledge is power. But only if you share it openly and let it grow.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_008",
+    "post": "We wrapped up a feature release this week. It reminded me of a saying I’ve always liked: slow and steady wins the race. It’s simple, but it still feels true in software.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_009",
+    "post": "While preparing for a demo, I kept repeating to myself: practice makes perfect. It helped calm my nerves and deliver smoothly.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "cliche_fail_010",
+    "post": "The other day I stumbled on a tricky bug. Solving it gave me that familiar reminder: better late than never.",
+    "expected_failures": ["cliche"],
+    "expected_passes": ["tone", "authenticity"]
+  },
+  {
+    "id": "no_cliche_011",
+    "post": "Last Friday, I spent the afternoon experimenting with a new AI model for summarizing research papers. I noticed that tweaking the prompt structure slightly improved the clarity of the summaries significantly. It reminded me how small changes in approach can have a measurable impact. Sharing these learnings with the team sparked a lively discussion about future research directions.",
+    "expected_failures": [],
+    "expected_passes": ["tone", "authenticity", "storytelling", "style"]
+  }
+]

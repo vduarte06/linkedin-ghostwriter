@@ -126,8 +126,11 @@ Evaluate the following post strictly according to these criteria:
 Post:
 {post}
 
-Return JSON with:
-- passed: true if the post meets most criteria, false otherwise
-- feedback: short explanation of any issues found, including any detected corporate phrases
+Return strict JSON with:
+- passed: boolean (true if post meets most criteria, false otherwise)
+- feedback: short explanation of any issues found
+- failures: array of specific failure categories found (e.g., ["cliche", "jargon", "tone", "storytelling", "authenticity"])
+- phrases: array of problematic phrases/examples found (empty if none)
+- suggestions: array of specific improvement suggestions (empty if none)
 """
         )
