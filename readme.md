@@ -86,32 +86,36 @@ The unified CLI provides multiple modes of operation:
 
 #### **Main Interactive Workflow**
 ```bash
-python scripts/run_ghostwriter.py
+python main.py main
 ```
 Generates LinkedIn posts from raw notes with full evaluation and iteration.
 
 #### **Test Individual Evaluators**
 ```bash
 # Test LLM judge with custom text
-python scripts/run_ghostwriter.py --test-judge --text "Your post text here"
+python main.py test-judge --text "Your post text here"
+
+# Test corporate jargon judge with custom text
+python main.py test-jargon --text "Your post text here"
 
 # Test dash evaluator with custom text
-python scripts/run_ghostwriter.py --test-dash --text "Your post text here"
+python main.py dash --text "Your post text here"
 
 # Test with custom parameters
-python scripts/run_ghostwriter.py --test-judge --text "..." --model gpt-4o --temperature 0.1
+python main.py test-judge --text "..." --model gpt-4o --temperature 0.1
 
 # Test from file with pretty output
-python scripts/run_ghostwriter.py --test-judge --file post.txt --pretty
+python main.py test-judge --file post.txt --pretty
 ```
 
 #### **CLI Options**
-- `--test-judge`: Test the LLM judge evaluator
-- `--test-dash`: Test the dash count evaluator
+- `test-judge`: Test the general LLM judge evaluator
+- `test-jargon`: Test the corporate jargon LLM judge evaluator
+- `dash`: Test the dash count evaluator
 - `--text`: Provide text directly (use quotes for multi-word text)
 - `--file`: Read text from a file
-- `--model`: Override LLM model (for LLM judge)
-- `--temperature`: Set LLM temperature (for LLM judge, default: 0.0)
+- `--model`: Override LLM model (for LLM judges)
+- `--temperature`: Set LLM temperature (for LLM judges, default: 0.0)
 - `--max-dashes`: Set maximum allowed dashes (for dash evaluator, default: 3)
 - `--pretty`: Pretty-print JSON output
 
