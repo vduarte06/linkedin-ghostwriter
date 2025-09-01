@@ -3,7 +3,6 @@
 from typing import List, Tuple, Optional
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-# Removed LLMChain import - using modern RunnableSequence instead
 
 from ..core.config import Config
 from ..evaluations.base import BaseEvaluator
@@ -32,10 +31,8 @@ class LinkedInGhostwriter:
             prompt_text += f"\n\nFeedback from previous attempt:\n{feedback}"
             
         prompt = ChatPromptTemplate.from_template(prompt_text)
-        # Use modern RunnableSequence instead of deprecated LLMChain
         chain = prompt | self.llm
         result = chain.invoke({"raw_notes": raw_notes})
-        # Extract text content from the response
         return result.content
     
     def run_evaluations(self, post: str) -> Tuple[bool, str]:
@@ -76,6 +73,8 @@ class LinkedInGhostwriter:
             
             if passed:
                 return post, iteration + 1, True
+
+            print(feedback)
                 
             iteration += 1
         

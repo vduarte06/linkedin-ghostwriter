@@ -13,6 +13,7 @@ import os
 import json
 from pathlib import Path
 import click
+import traceback
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -43,7 +44,7 @@ def main_workflow():
         llm_evaluator = LLMJudgeEvaluator()
 
         # Create ghostwriter
-        ghostwriter = LinkedInGhostwriter([dash_evaluator, llm_evaluator])
+        ghostwriter = LinkedInGhostwriter([llm_evaluator]) #TODO: add dash_evaluator
 
         click.echo("✅ Ghostwriter initialized successfully!")
         click.echo("\nEnter your raw notes (press Enter twice to finish):")
@@ -94,7 +95,7 @@ def main_workflow():
     except KeyboardInterrupt:
         click.echo("\n\n👋 Goodbye!")
     except Exception as e:
-        print(e)
+        traceback.print_exc()
         click.echo(f"\n❌ Error: {e}")
         sys.exit(1)
 
